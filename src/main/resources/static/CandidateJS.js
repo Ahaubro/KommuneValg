@@ -1,7 +1,7 @@
 // "Link" til mit api tilknyttet en variabel, som jeg bruger til at fetche fra
 const URL = "api"
 
-// Fetch metode der læser indhold fra databasen via. mit api.
+// Fetch funktion der læser indhold fra databasen via. mit api.
 function fetchCandidates() {
 fetch(URL)
 .then(function (response) {
@@ -29,7 +29,7 @@ function makeTableRows() {
     document.getElementById("t-body").innerHTML = rows.join("")
 }
 
-// Her laver jeg en cache metode, som kan gemme informationer i frontend, for at mindske kommunikatoinen mellem frontend og backend
+// Her laver jeg en cache funktion, som kan gemme informationer i frontend, for at mindske kommunikatoinen mellem frontend og backend
 function localCache() {
     let candidates = []
     const addEdit = (candidate, method) => {
@@ -37,7 +37,6 @@ function localCache() {
             candidates.push(candidate)
         } else if (method === "PUT") {
             candidates = candidates.map(c => c.id == candidate.id ? candidate : c)
-
         }
     }
     return {
@@ -49,7 +48,7 @@ function localCache() {
     }
 }
 
-// Funktion der opsætter handlers (tilknytter funktioner til diverse id's)
+// Funktion der opsætter handlers (tilknytter funktioner til diverse id's med onclick)
 function setHandlers() {
     document.getElementById("t-body").onclick = handleTable
     document.getElementById("btn-save").onclick = saveCandidate
@@ -59,13 +58,13 @@ function setHandlers() {
 }
 setHandlers()
 
-// Funktion der håndtere mouse events i min tabel, samt fetch til delete / edit og add
+// Funktion der håndtere mouse events i min tabel, samt fetch til delete
 function handleTable(evt) {
     evt.preventDefault()
     evt.stopPropagation()
     const target = evt.target;
 
-    // Hvis der trykkes på slet knappen, sendes fetch her
+    // Hvis der trykkes på slet knappen, tages fat i id'et her, hvor efter der fetches med det id, fra linje 74
     if (target.dataset.idDelete) {
         const idToDelete = Number(target.dataset.idDelete)
         const options = {
@@ -90,7 +89,7 @@ function handleTable(evt) {
     }
 }
 
-// Funktion der viser min modal, samt henter informationer hvis der skal editeres
+// Funktion der viser min modal, samt henter informationer når der editeres
 function displayModal(candidate) {
     const modal = new bootstrap.Modal(document.getElementById('min-modal'))
     document.getElementById("candidate-modal").innerText = candidate.id ? "Rediger kandidat" : "Tilføj kandidat"
@@ -135,7 +134,7 @@ function saveCandidate() {
         .catch(e=>alert(e))
 }
 
-// Funktion der kalder displayModal med et tomt Candidate objekt.
+// Funktion der kalder displayModal med et tomt Candidate objekt, så disse fields kan få værdier når man taster dem ind via. web
 function newCandidate() {
     displayModal({
         id : null,
@@ -145,7 +144,7 @@ function newCandidate() {
     })
 }
 
-// Funktion der sortere politicalParty
+// Funktion der sortere efter parti
 function filterParty() {
     const list = cache.getAll().sort((a,b) => {
         if(a.politicalParty < b.politicalParty) {
@@ -166,7 +165,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 // Funktion der tegner et google chart over stemmerne fordelt på de forskellige partier
 function drawChart() {
-    // Her loader jeg fra mit eksterne link (google charts)
+    // Her visualisere google et array og laver det om til et diagram (DETTE ER HENTET FRA GOOGLE - se kildehenvisning)
     const chartData = google.visualization.arrayToDataTable([
         ['Task', 'Total votes'],
         ['Socialdemokratiet (A)', 749],
