@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
+@CrossOrigin(origins = "*")
 public class CandidateRest {
 
     // Repository objekt jeg bruger til at kommunikere med databasen
