@@ -169,12 +169,12 @@ function drawChart() {
     // Her loader jeg fra mit eksterne link (google charts)
     const chartData = google.visualization.arrayToDataTable([
         ['Task', 'Total votes'],
-        ['A', 749],
-        ['SF', 309],
-        ['C', 539],
-        ['DF', 21],
-        ['V', 586],
-        ['Ø', 76]
+        ['Socialdemokratiet (A)', 749],
+        ['Socialistisk folkeparti (F)', 309],
+        ['Det konservative folkeparti (C)', 539],
+        ['Dansk Folkeparti (DF)', 21],
+        ['Venstre (V)', 586],
+        ['Enhedslisten (Ø)', 76]
     ]);
 
     const options = {'title': 'Stemmer i alt fordelt på partierne', 'width': 450, 'height': 350}

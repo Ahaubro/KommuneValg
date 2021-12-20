@@ -26,7 +26,9 @@
 <br/>
 
 <h2> Liste over alle kandidater</h2>
+<br/>
 <!--  Tabel over alle kandidater, indholdet bliver tildelt via. id="tbody", i metoden makeTableRows  -->
+<div id="tableDiv">
 <table class="table" style="">
     <thead>
     <tr>
@@ -38,6 +40,9 @@
     </thead>
     <tbody id="t-body"></tbody>
 </table>
+</div>
+
+<br/>
 
 <button type="button" class="btn btn-success" id="btn-add-candidate"> Tilføj ny kandidat </button>
 <button type="button" class="btn btn-warning" id="show-chart"> Se valgresultater</button>
@@ -76,6 +81,7 @@
     </div>
 </div>
 
+<!--  Modal til at vise valgresultaterne  -->
 <div id="chart-Modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
